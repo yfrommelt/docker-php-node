@@ -52,7 +52,6 @@ RUN apt-get autoremove -y && \
 # Install common PHP packages.
 RUN docker-php-ext-install \
     iconv \
-    mcrypt \
     mbstring \
     bcmath \
     intl \
