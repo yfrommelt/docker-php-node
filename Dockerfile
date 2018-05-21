@@ -70,11 +70,11 @@ RUN docker-php-ext-configure gd \
 
 # Install Xdebug
 RUN pecl install xdebug && docker-php-ext-enable xdebug
-COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+COPY xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php
-RUN mv composer.phar /usr/local/bin/composer
+COPY composer.phar /usr/local/bin/composer
 
 # Add fingerprints for common sites.
 RUN mkdir ~/.ssh && \
