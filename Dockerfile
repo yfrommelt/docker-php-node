@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.2-fpm
 
 MAINTAINER Yoann Frommelt <yfrommelt@hevaweb.com>
 
@@ -9,39 +9,36 @@ ENV HOME /root
 # Ubuntu mirrors
 RUN apt-get update
 
-# Repo for Yarn
-RUN apt-key adv --fetch-keys http://dl.yarnpkg.com/debian/pubkey.gpg
-RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
-# Repo for Node
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
-
 # Install requirements for standard builds.
-RUN apt-get update && \
-    apt-get install --no-install-recommends -y \
+RUN apt-get install --no-install-recommends -y \
         apt-transport-https \
         build-essential \
         bzip2 \
         ca-certificates \
         curl \
         git \
+        gnupg \
         libfreetype6-dev \
         libicu-dev \
         libjpeg-dev \
         libjpeg62-turbo-dev \
-        libmcrypt-dev \
         libmemcached-dev \
-        libpng12-dev \
+        libpng-dev \
         libpq-dev \
         libssl-dev \
         libz-dev \
-        nodejs \
+        libzip-dev \
         openssh-client \
         rsync \
         unzip \
-        wget \
-        yarn \
-        zlib1g-dev
+        wget
+
+# Repo for Node
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
+RUN apt-get install -y nodejs
+
+# Repo for Yarn
+RUN npm install -g yarn
 
 # Standard cleanup
 RUN apt-get autoremove -y && \
@@ -52,7 +49,6 @@ RUN apt-get autoremove -y && \
 # Install common PHP packages.
 RUN docker-php-ext-install \
     iconv \
-    mcrypt \
     mbstring \
     bcmath \
     intl \
@@ -69,8 +65,10 @@ RUN docker-php-ext-configure gd \
     docker-php-ext-install gd
 
 # Install Xdebug
-RUN pecl install xdebug && docker-php-ext-enable xdebug
-COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+RUN pecl install xdebug && docker-php-ext-enable xdebug \
+  && echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+  && echo "display_startup_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+  && echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php
