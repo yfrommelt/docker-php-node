@@ -7,13 +7,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV HOME /root
 
 # Ubuntu mirrors
-RUN apt-get update
+RUN apt-get update && apt-get install curl
 
 # Repo for Node
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
 
 # Repo for Yarn
-RUN curl -o- -L https://yarnpkg.com/install.sh | bash -
+RUN curl -sL https://yarnpkg.com/install.sh | bash
 
 # Install requirements for standard builds.
 RUN apt-get update && \
@@ -22,7 +22,6 @@ RUN apt-get update && \
         build-essential \
         bzip2 \
         ca-certificates \
-        curl \
         git \
         libfreetype6-dev \
         libicu-dev \
