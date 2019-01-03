@@ -35,7 +35,7 @@ RUN apt-get install --no-install-recommends -y \
         wget
 
 # Repo for Node
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
 RUN apt-get install -y nodejs
 
 # Repo for Yarn
