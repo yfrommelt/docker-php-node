@@ -1,6 +1,6 @@
 FROM php:7.1-fpm
 
-MAINTAINER Yoann Frommelt <yfrommelt@hevaweb.com>
+MAINTAINER Yoann Frommelt <yoann@frommelt.fr>
 
 # Set correct environment variables.
 ENV DEBIAN_FRONTEND=noninteractive
