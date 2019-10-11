@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.3-fpm
 
 MAINTAINER Yoann Frommelt <yoann@frommelt.fr>
 
@@ -22,7 +22,6 @@ RUN apt-get install --no-install-recommends -y \
         libicu-dev \
         libjpeg-dev \
         libjpeg62-turbo-dev \
-        libmcrypt-dev \
         libmemcached-dev \
         libpng-dev \
         libpq-dev \
@@ -51,7 +50,6 @@ RUN apt-get autoremove -y && \
 RUN docker-php-ext-install \
     iconv \
     mbstring \
-    mcrypt \
     bcmath \
     intl \
     pdo \
