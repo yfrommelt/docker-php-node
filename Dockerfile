@@ -24,6 +24,7 @@ RUN apt-get install --no-install-recommends -y \
         libjpeg62-turbo-dev \
         libmemcached-dev \
         libpng-dev \
+        libonig-dev \
         libpq-dev \
         libssl-dev \
         libz-dev \
