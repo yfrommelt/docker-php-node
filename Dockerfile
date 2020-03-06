@@ -58,10 +58,7 @@ RUN docker-php-ext-install \
     zip
 
 # Install the PHP gd library
-RUN docker-php-ext-configure gd \
-        --enable-gd-native-ttf \
-        --with-jpeg-dir=/usr/lib \
-        --with-freetype-dir=/usr/include/freetype2 && \
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install gd
 
 # Install Xdebug
