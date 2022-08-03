@@ -35,7 +35,7 @@ RUN apt-get install --no-install-recommends -y \
         wget
 
 # Repo for Node
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
 RUN apt-get install -y nodejs
 
 # Repo for Yarn
@@ -71,6 +71,11 @@ RUN pecl install xdebug && docker-php-ext-enable xdebug \
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
+
+# Install deployer
+RUN curl -LO https://deployer.org/deployer.phar
+RUN mv deployer.phar /usr/local/bin/dep
+RUN chmod +x /usr/local/bin/dep
 
 # Add fingerprints for common sites.
 RUN mkdir ~/.ssh && \
